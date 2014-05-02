@@ -16,7 +16,7 @@ How to run
 Load page to be debugged in it
 * (The following steps are required until I make DevToolsApp available on Chrome Play Store for easy installation.
 * For now git clone the DevToolsApp from github.e.g.
-* 
+
 ```bat
 > git clone https://github.com/sandipchitale/DevToolsApp.git
 ```
@@ -26,3 +26,15 @@ Load page to be debugged in it
 * Click on the run button in the toolbar.
 * Select the page to debug (from the shown grid) by clicking on it
 * Voila, it should load the selected devtools
+
+You should be able to choose any version of devtools using urls from:
+
+```
+http://src.chromium.org/blink/branches/chromium/
+```
+
+For example, to use the 1971 branch of devtools use URL:
+
+```
+http://src.chromium.org/blink/branches/chromium/1971/Source/devtools/front_end/inspector.html
+```
