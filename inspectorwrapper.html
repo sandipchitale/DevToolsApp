@@ -23,14 +23,14 @@
 				<form style="-webkit-app-region: no-drag;" class="navbar-form navbar-left" role="form">
 					<div class="form-group">
 						<label for="host" class="control-label">http://</label>
-						<input ng-model="config.host" class="form-control" placeholder="localhost" size="20">
+						<input ng-model="config.host" class="form-control" placeholder="localhost" size="20" title="Host where the debug target is running">
 						<label class="control-label">:</label>
-						<input ng-model="config.port" class="form-control" placeholder="9222" size="6">
+						<input ng-model="config.port" class="form-control" placeholder="9222" size="6" title="Port specified in --remote-debugging-port={{config.port}} when launching debugee Chrome">
 						<label class="control-label">/#</label>
 					</div>
 		            <div class="form-group">
 		                <div class="input-group" style="width: 400px;">
-							<input ng-model="config.devtoolsUrl" type="text" class="form-control" id="devtoolsUrl"/>
+							<input ng-model="config.devtoolsUrl" type="text" class="form-control" id="devtoolsUrl" title="URL of devtools frontend code"/>
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span>
 								</button>
