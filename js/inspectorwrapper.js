@@ -43,7 +43,8 @@
                 content: "Replace NNNN in URL above with one of the branch numbers shown below.",
                 placement: 'bottom',
                 animation: 'true',
-                title: ' '
+                title: ' ',
+                trigger: 'manual'
             }
         );
 
