@@ -7,7 +7,7 @@
         var webviewHeight = windowHeight;
 
         webview.style.width = webviewWidth + 'px';
-        webview.style.height = webviewHeight + 'px';
+        webview.style.height = (webviewHeight - 70) + 'px';
     }
 
     window.onresize = doLayout;
@@ -27,7 +27,8 @@
             devtoolsUrls: [
                 'https://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git/inspector/front-end/inspector.html',
-                'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html'
+                'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html',
+                'http://src.chromium.org/blink/branches/chromium/NNNN/Source/devtools/front_end/inspector.html'
             ]
         }
 
@@ -35,8 +36,27 @@
             $scope.config.devtoolsUrl = devtoolsUrl;
         }
 
+        $('#devtoolsUrl').popover(
+            {
+                container: 'body',
+                content: "Replace NNNN in URL above with one of the branch numbers shown below.",
+                placement: 'bottom',
+                animation: 'true',
+                title: ' '
+            }
+        );
+
         $scope.reconnect = function() {
-            $('webview').prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + '/#' + $scope.config.devtoolsUrl);
+            if ($scope.config.devtoolsUrl.indexOf('/NNNN/') !== -1) {
+                $('#devtoolsUrl').popover('show');
+                setTimeout(function(){$('#devtoolsUrl').popover('hide');}, 4000);
+                if ($('webview').prop('src') !== 'http://src.chromium.org/blink/branches/chromium/') {
+                    $('webview').prop('src', 'http://src.chromium.org/blink/branches/chromium/');
+                }
+            } else {
+                $('#devtoolsUrl').popover('hide');
+                $('webview').prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + '/#' + $scope.config.devtoolsUrl);
+            }
         }
 
         $scope.info = function() {
