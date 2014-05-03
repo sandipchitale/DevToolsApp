@@ -47,6 +47,15 @@
             }
         );
 
+        var webview = $('webview');
+        var scollToBottom = false;
+        webview[0].addEventListener("loadstop", function() {
+            if (scollToBottom) {
+                scollToBottom = false;
+                webview[0].executeScript({ code: "window.scrollTo(0, document.body.scrollHeight);" });
+            }
+        });
+
         $scope.reconnect = function() {
             var foundAt = $scope.config.devtoolsUrl.indexOf('/NNNN/') + 1;
             if ($scope.config.devtoolsUrl.indexOf('/NNNN/') !== -1) {
@@ -55,17 +64,18 @@
                 devtoolsUrlInput.focus();
                 devtoolsUrlInput.popover('show');
                 setTimeout(function(){devtoolsUrlInput.popover('hide');}, 4000);
-                if ($('webview').prop('src') !== 'http://src.chromium.org/blink/branches/chromium/') {
-                    $('webview').prop('src', 'http://src.chromium.org/blink/branches/chromium/');
+                if (webview.prop('src') !== 'http://src.chromium.org/blink/branches/chromium/') {
+                    scollToBottom = true;
+                    webview.prop('src', 'http://src.chromium.org/blink/branches/chromium/');
                 }
             } else {
                 devtoolsUrlInput.popover('hide');
-                $('webview').prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + '/#' + $scope.config.devtoolsUrl);
+                webview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + '/#' + $scope.config.devtoolsUrl);
             }
         }
 
         $scope.info = function() {
-            $('webview').prop('src', 'https://developers.google.com/chrome-developer-tools/docs/debugger-protocol#remote');
+            webview.prop('src', 'https://developers.google.com/chrome-developer-tools/docs/debugger-protocol#remote');
         }
 
         $scope.exit = function() {
