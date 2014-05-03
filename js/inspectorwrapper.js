@@ -19,7 +19,7 @@
     .run(function() {
         doLayout();
     })
-    .controller('DevToolsController', function($scope) {
+    .controller('DevToolsController', function($scope, $http) {
         $scope.config = {
             host: 'localhost',
             port: '9222',
@@ -27,52 +27,47 @@
             devtoolsUrls: [
                 'https://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git/inspector/front-end/inspector.html',
-                'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html',
-                'http://src.chromium.org/blink/branches/chromium/NNNN/Source/devtools/front_end/inspector.html'
+                'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html'
             ]
         }
+
+        // Get 25 latest branch numbers from blink
+        $http({method: 'GET', url: 'http://src.chromium.org/blink/branches/chromium/'}).
+                        success(function(data, status, headers, config) {
+                            var el = document.createElement( 'div' );
+                            el.innerHTML = data;
+                            var lis = el.getElementsByTagName('li');
+                            if (lis) {
+                                var branchNums = [];
+                                for (var i = 0; i < lis.length; i++) {
+                                    if (lis[i] && lis[i].firstChild && lis[i].firstChild.firstChild && lis[i].firstChild.firstChild.textContent) {
+                                        var branchNum = parseInt(lis[i].firstChild.firstChild.textContent);
+                                        if (!isNaN(branchNum)) {
+                                            branchNums.push(branchNum);
+                                        }
+                                    }
+                                }
+                                branchNums.sort(function(a, b){return b-a});
+                                branchNums.length = 25;
+                                if (branchNums.length > 0) {
+                                    for(var j = 0; j < branchNums.length; j++) {
+                                        $scope.config.devtoolsUrls.push(
+                                            'http://src.chromium.org/blink/branches/chromium/' + branchNums[j] +  '/Source/devtools/front_end/inspector.html')
+                                    }
+                                }
+                            }
+                        }).
+                        error(function(data, status, headers, config) {
+                        });
 
         $scope.setDevtoolsUrl = function(devtoolsUrl) {
             $scope.config.devtoolsUrl = devtoolsUrl;
         }
 
-        var devtoolsUrlInput = $('#devtoolsUrl');
-        devtoolsUrlInput.popover(
-            {
-                container: 'body',
-                content: "Replace NNNN in URL above with one of the branch numbers shown below.",
-                placement: 'bottom',
-                animation: 'true',
-                title: ' ',
-                trigger: 'manual'
-            }
-        );
-
         var webview = $('webview');
-        var scollToBottom = false;
-        webview[0].addEventListener("loadstop", function() {
-            if (scollToBottom) {
-                scollToBottom = false;
-                webview[0].executeScript({ code: "window.scrollTo(0, document.body.scrollHeight);" });
-            }
-        });
 
         $scope.reconnect = function() {
-            var foundAt = $scope.config.devtoolsUrl.indexOf('/NNNN/') + 1;
-            if ($scope.config.devtoolsUrl.indexOf('/NNNN/') !== -1) {
-                devtoolsUrlInput.prop('selectionStart', foundAt);
-                devtoolsUrlInput.prop('selectionEnd', foundAt + 4);
-                devtoolsUrlInput.focus();
-                devtoolsUrlInput.popover('show');
-                setTimeout(function(){devtoolsUrlInput.popover('hide');}, 4000);
-                if (webview.prop('src') !== 'http://src.chromium.org/blink/branches/chromium/') {
-                    scollToBottom = true;
-                    webview.prop('src', 'http://src.chromium.org/blink/branches/chromium/');
-                }
-            } else {
-                devtoolsUrlInput.popover('hide');
-                webview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + '/#' + $scope.config.devtoolsUrl);
-            }
+            webview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + '/#' + $scope.config.devtoolsUrl);
         }
 
         $scope.info = function() {

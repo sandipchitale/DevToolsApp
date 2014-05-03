@@ -7,7 +7,7 @@
 			"page": "background.html"
 		}
 	},
-	"permissions": ["webview"],
+	"permissions": ["webview", "http://src.chromium.org/"],
 	"icons": {
 		"16": "devtools16.png",
 		"128": "devtools128.png"
