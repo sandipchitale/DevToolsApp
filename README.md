@@ -36,6 +36,6 @@ http://src.chromium.org/blink/branches/chromium/1971/Source/devtools/front_end/i
 Known limitations
 =================
 
-Due to issue [189233008](https://codereview.chromium.org/189233008/) this only work for Chrome Canary at the moment.
+Due to issue [189233008](https://codereview.chromium.org/189233008/) DevToolsApp only works against Chrome Canary debugee at the moment.
 
 DevToolsApp will work in standard Chrome starting version 35.x .
