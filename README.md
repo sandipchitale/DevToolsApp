@@ -14,14 +14,8 @@ How to run
 ```
 
 Load page to be debugged in it
-* (The following steps are required until I make DevToolsApp available on Chrome Play Store for easy installation.
-* For now git clone the DevToolsApp from github.e.g.
 
-```bat
-> git clone https://github.com/sandipchitale/DevToolsApp.git
-```
-
-* Install it into your desktop Chrome using developer mode.
+* Install DevToolsApp from [Chrome Web Store](https://chrome.google.com/webstore/detail/dev-tools-app/eichfopopofffkbhjgbabdegakcdmpkm?hl=en-US).
 * Launch it.
 * Click on the run button in the toolbar.
 * Select the page to debug (from the shown grid) by clicking on it
@@ -38,3 +32,10 @@ For example, to use the 1971 branch of devtools use URL:
 ```
 http://src.chromium.org/blink/branches/chromium/1971/Source/devtools/front_end/inspector.html
 ```
+
+Known limitations
+=================
+
+Due to issue [189233008](https://codereview.chromium.org/189233008/) this only work for Chrome Canary at the moment.
+
+DevToolsApp will work in standard Chrome starting version 35.x .
