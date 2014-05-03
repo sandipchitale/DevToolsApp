@@ -27,7 +27,8 @@
             devtoolsUrls: [
                 'https://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git/inspector/front-end/inspector.html',
-                'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html'
+                'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html',
+                "Builtin"
             ]
         }
 
@@ -67,7 +68,7 @@
         var webview = $('webview');
 
         $scope.reconnect = function() {
-            webview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + '/#' + $scope.config.devtoolsUrl);
+            webview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + ($scope.config.devtoolsUrl === 'Builtin' ?  '' : '/#' + $scope.config.devtoolsUrl));
         }
 
         $scope.info = function() {
