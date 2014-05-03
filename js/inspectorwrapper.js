@@ -36,7 +36,8 @@
             $scope.config.devtoolsUrl = devtoolsUrl;
         }
 
-        $('#devtoolsUrl').popover(
+        var devtoolsUrlInput = $('#devtoolsUrl');
+        devtoolsUrlInput.popover(
             {
                 container: 'body',
                 content: "Replace NNNN in URL above with one of the branch numbers shown below.",
@@ -47,14 +48,18 @@
         );
 
         $scope.reconnect = function() {
+            var foundAt = $scope.config.devtoolsUrl.indexOf('/NNNN/') + 1;
             if ($scope.config.devtoolsUrl.indexOf('/NNNN/') !== -1) {
-                $('#devtoolsUrl').popover('show');
-                setTimeout(function(){$('#devtoolsUrl').popover('hide');}, 4000);
+                devtoolsUrlInput.prop('selectionStart', foundAt);
+                devtoolsUrlInput.prop('selectionEnd', foundAt + 4);
+                devtoolsUrlInput.focus();
+                devtoolsUrlInput.popover('show');
+                setTimeout(function(){devtoolsUrlInput.popover('hide');}, 4000);
                 if ($('webview').prop('src') !== 'http://src.chromium.org/blink/branches/chromium/') {
                     $('webview').prop('src', 'http://src.chromium.org/blink/branches/chromium/');
                 }
             } else {
-                $('#devtoolsUrl').popover('hide');
+                devtoolsUrlInput.popover('hide');
                 $('webview').prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + '/#' + $scope.config.devtoolsUrl);
             }
         }
