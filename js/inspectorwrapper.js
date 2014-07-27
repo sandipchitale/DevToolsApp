@@ -1,13 +1,25 @@
 (function(){
     function doLayout() {
-        var webview = document.querySelector('webview');
+        var debuggerView = document.querySelector('#debuggerview');
+        var infoView = document.querySelector('#infoview');
+        var blogView = document.querySelector('#blogview');
+        var gitHubView = document.querySelector('#githubview');
         var windowWidth = document.documentElement.clientWidth;
         var windowHeight = document.documentElement.clientHeight;
         var webviewWidth = windowWidth;
         var webviewHeight = windowHeight;
 
-        webview.style.width = webviewWidth + 'px';
-        webview.style.height = (webviewHeight - 70) + 'px';
+        debuggerView.style.width = webviewWidth + 'px';
+        debuggerView.style.height = (webviewHeight - 110) + 'px';
+        
+        infoView.style.width = webviewWidth + 'px';
+        infoView.style.height = (webviewHeight - 110) + 'px';
+        
+        blogView.style.width = webviewWidth + 'px';
+        blogView.style.height = (webviewHeight - 110) + 'px';
+
+        gitHubView.style.width = webviewWidth + 'px';
+        gitHubView.style.height = (webviewHeight - 110) + 'px';
     }
 
     window.onresize = doLayout;
@@ -66,14 +78,12 @@
             $scope.config.devtoolsUrl = devtoolsUrl;
         }
 
-        var webview = $('webview');
+        var debuggerTab = $('#contentTabs a[href="#debuggerTab"]');
+        var debuggerview = $('#debuggerview');
 
         $scope.reconnect = function() {
-            webview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + ($scope.config.devtoolsUrl === 'Builtin' ?  '' : '/#' + $scope.config.devtoolsUrl));
-        }
-
-        $scope.info = function() {
-            webview.prop('src', 'https://developers.google.com/chrome-developer-tools/docs/debugger-protocol#remote');
+        	debuggerTab.tab('show');
+        	debuggerview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + ($scope.config.devtoolsUrl === 'Builtin' ?  '' : '/#' + $scope.config.devtoolsUrl));
         }
 
         $scope.exit = function() {

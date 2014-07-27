@@ -1,12 +1,12 @@
 DevToolsApp
 ===========
 
-A chrome packaged app wrapper to try out different versions of DevTools
+A Chrome packaged app to try out different versions of Chrome DevTools.
 
 How to run
 ==========
 
-* Download Chrome Canary
+* Download and install Chrome (36.x)
 * Run it e.g.
 
 ```bat
@@ -36,6 +36,4 @@ http://src.chromium.org/blink/branches/chromium/1971/Source/devtools/front_end/i
 Known limitations
 =================
 
-Due to issue [189233008](https://codereview.chromium.org/189233008/) DevToolsApp only works against Chrome Canary debugee at the moment.
-
-DevToolsApp will work in standard Chrome starting version 35.x .
+* None
