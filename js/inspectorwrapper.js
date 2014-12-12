@@ -35,7 +35,7 @@
         $scope.config = {
             host: 'localhost',
             port: '9222',
-            devtoolsUrl: 'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
+            devtoolsUrl: 'http://chrome-developer-tools.googlecode.com/git/devtools-frontend/Source/devtools/front_end/inspector.html',
             devtoolsUrls: [
                 'Builtin',
                 'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html',
