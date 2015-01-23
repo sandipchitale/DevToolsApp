@@ -10,16 +10,16 @@
         var webviewHeight = windowHeight;
 
         debuggerView.style.width = webviewWidth + 'px';
-        debuggerView.style.height = (webviewHeight - 120) + 'px';
+        debuggerView.style.height = (webviewHeight - 100) + 'px';
 
         infoView.style.width = webviewWidth + 'px';
-        infoView.style.height = (webviewHeight - 120) + 'px';
+        infoView.style.height = (webviewHeight - 100) + 'px';
 
         blogView.style.width = webviewWidth + 'px';
-        blogView.style.height = (webviewHeight - 120) + 'px';
+        blogView.style.height = (webviewHeight - 100) + 'px';
 
         gitHubView.style.width = webviewWidth + 'px';
-        gitHubView.style.height = (webviewHeight - 120) + 'px';
+        gitHubView.style.height = (webviewHeight - 100) + 'px';
     }
 
     window.onresize = doLayout;
@@ -82,10 +82,12 @@
         $scope.showConnectForm = function() {
         	$('#connectform').collapse('show');
         	$scope.connectFormShowing = true;
+        	doLayout();
         }
         $scope.hideConnectForm = function() {
         	$('#connectform').collapse('hide');
         	$scope.connectFormShowing = false;
+        	doLayout();
         }
         
         var debuggerTab = $('#contentTabs a[href="#debuggerTab"]');
