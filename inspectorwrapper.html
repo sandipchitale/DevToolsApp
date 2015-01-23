@@ -66,39 +66,35 @@
 		</div>
 		<br/>
 		<!-- Nav tabs -->
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12">
-					<ul class="nav nav-tabs" role="tablist" id="contentTabs">
-						<li>
-							<a href="#debuggerTab" role="tab" data-toggle="tab">Debugger</a>
-						</li>
-						<li class="active">
-							<a href="#infoTab" role="tab" data-toggle="tab">Info</a>
-						</li>
-						<li>
-							<a href="#blogTab" role="tab" data-toggle="tab">Blog</a>
-						</li>
-						<li>
-							<a href="#gitHubTab" role="tab" data-toggle="tab">GitHub</a>
-						</li>
-					</ul>
-			
-					<!-- Tab panes -->
-					<div class="tab-content">
-						<div class="tab-pane" id="debuggerTab">
-							<webview id="debuggerview" style="width: 700px; height: 600px;" src="about:blank" />
-						</div>
-						<div class="tab-pane active" id="infoTab">
-							<webview id="infoview" style="width: 700px; height: 600px;" src="https://developers.google.com/chrome-developer-tools/docs/debugger-protocol#remote" />
-						</div>
-						<div class="tab-pane" id="blogTab">
-							<webview id="blogview" style="width: 700px; height: 600px;" src="http://sandipchitale.blogspot.com/2014/05/devtoolsapp.html" />
-						</div>
-						<div class="tab-pane" id="gitHubTab">
-							<webview id="githubview" style="width: 700px; height: 600px;" src="https://github.com/sandipchitale/DevToolsApp" />
-						</div>
-					</div>
+		<div>
+			<ul class="nav nav-tabs" role="tablist" id="contentTabs">
+				<li>
+					<a href="#debuggerTab" role="tab" data-toggle="tab">Debugger</a>
+				</li>
+				<li class="active">
+					<a href="#infoTab" role="tab" data-toggle="tab">Info</a>
+				</li>
+				<li>
+					<a href="#blogTab" role="tab" data-toggle="tab">Blog</a>
+				</li>
+				<li>
+					<a href="#gitHubTab" role="tab" data-toggle="tab">GitHub</a>
+				</li>
+			</ul>
+	
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div class="tab-pane" id="debuggerTab">
+					<webview id="debuggerview" style="width: 700px; height: 500px;" src="about:blank" />
+				</div>
+				<div class="tab-pane active" id="infoTab">
+					<webview id="infoview" style="width: 700px; height: 500px;" src="https://developers.google.com/chrome-developer-tools/docs/debugger-protocol#remote" />
+				</div>
+				<div class="tab-pane" id="blogTab">
+					<webview id="blogview" style="width: 700px; height: 500px;" src="http://sandipchitale.blogspot.com/2014/05/devtoolsapp.html" />
+				</div>
+				<div class="tab-pane" id="gitHubTab">
+					<webview id="githubview" style="width: 700px; height: 500px;" src="https://github.com/sandipchitale/DevToolsApp" />
 				</div>
 			</div>
 		</div>

@@ -10,16 +10,16 @@
         var webviewHeight = windowHeight;
 
         debuggerView.style.width = webviewWidth + 'px';
-        debuggerView.style.height = (webviewHeight - 110) + 'px';
+        debuggerView.style.height = (webviewHeight - 120) + 'px';
 
         infoView.style.width = webviewWidth + 'px';
-        infoView.style.height = (webviewHeight - 110) + 'px';
+        infoView.style.height = (webviewHeight - 120) + 'px';
 
         blogView.style.width = webviewWidth + 'px';
-        blogView.style.height = (webviewHeight - 110) + 'px';
+        blogView.style.height = (webviewHeight - 120) + 'px';
 
         gitHubView.style.width = webviewWidth + 'px';
-        gitHubView.style.height = (webviewHeight - 110) + 'px';
+        gitHubView.style.height = (webviewHeight - 120) + 'px';
     }
 
     window.onresize = doLayout;
