@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"	ng-app="DevToolsApp" ng-csp>
+<html lang="en"	data-ng-app="DevToolsApp" data-ng-csp>
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,71 +12,95 @@
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/inspectorwrapper.css" rel="stylesheet" type="text/css">
 	</head>
-	<body ng-controller="DevToolsController">
-		<nav style="-webkit-app-region: drag;" class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div style="-webkit-app-region: no-drag;" class="navbar-header">
-				<a class="navbar-brand" href="#"><img style="vertical-align: middle" src="devtools16.png"/> DevTools App</a>
-			</div>
-			<div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
-
-				<form style="-webkit-app-region: no-drag;" class="navbar-form navbar-left" role="form">
-					<div class="form-group">
-						<label for="host" class="control-label">http://</label>
-						<input ng-model="config.host" class="form-control" placeholder="localhost" size="20" title="Host where the debug target is running">
-						<label class="control-label">:</label>
-						<input ng-model="config.port" class="form-control" placeholder="9222" size="6" title="Port specified in --remote-debugging-port={{config.port}} when launching debugee Chrome">
-						<label class="control-label">/#</label>
-					</div>
-		            <div class="form-group">
-		                <div class="input-group" style="width: 420px;">
-							<input ng-model="config.devtoolsUrl" type="text" class="form-control" id="devtoolsUrl" title="URL of devtools frontend code" />
-							<div class="input-group-btn">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu pull-right" style="background-color: white !important;">
-									<li ng-repeat="devtoolsUrl in config.devtoolsUrls">
-										<button class="btn btn-default btn-block" style="text-align: left !important; padding-left: 5px;padding-right: 5px;" ng-click="setDevtoolsUrl(devtoolsUrl)">{{devtoolsUrl}}</button>
-									</li>
-								</ul>
-							</div><!-- /btn-group -->
-		                </div>
-		            </div>
-		        </form>
-				<ul style="-webkit-app-region: no-drag;" class="nav navbar-nav">
-					<li>
-						<a ng-click="reconnect()" href="#"><span class="glyphicon glyphicon-play-circle"></span></a>
-					</li>
-				</ul>
+	<body data-ng-controller="DevToolsController">
+		<nav style="-webkit-app-region: drag;" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div style="-webkit-app-region: no-drag;" class="navbar-header">
+					<a class="navbar-brand" href="#"><img style="vertical-align: middle" src="devtools16.png"/> DevTools App</a>
+				</div>
 				<ul style="-webkit-app-region: no-drag;" class="nav navbar-nav pull-right">
 					<li>
-						<a ng-click="exit()" href="#"><span class="glyphicon glyphicon-remove-circle"></span></a>
+						<a data-ng-show="connectFormShowing" data-ng-click="hideConnectForm()" href="#"><span class="glyphicon glyphicon-chevron-up"></span></a>
+						<a data-ng-hide="connectFormShowing" data-ng-click="showConnectForm()" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+					</li>
+					<li>
+						<a data-ng-click="exit()" href="#"><span class="glyphicon glyphicon-remove"></span></a>
 					</li>
 				</ul>
 			</div>
 		</nav>
+		
+		<div class="connectpanel collapse in container-fluid" id="connectform">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<form class="form-inline" role="form">
+						<div class="form-group">
+							<label for="host" class="control-label">http://</label>
+							<input data-ng-model="config.host" class="form-control" placeholder="localhost" size="10" title="Host where the debug target is running">
+							<label class="control-label">:</label>
+							<input data-ng-model="config.port" class="form-control" placeholder="9222" size="4" title="Port specified in --remote-debuggidata-ng-port={{config.port}} when launching debugee Chrome">
+							<label class="control-label">/#</label>
+						</div>
+						<div class="form-group">
+							<div class="input-group" style="width: 600px;">
+								<input data-ng-model="config.devtoolsUrl" type="text" class="form-control" id="devtoolsUrl" title="URL of devtools frontend code" />
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu pull-right" style="background-color: white !important;">
+										<li data-ng-repeat="devtoolsUrl in config.devtoolsUrls">
+											<button class="btn btn-default btn-block" style="text-align: left !important; padding-left: 5px;padding-right: 5px;" data-ng-click="setDevtoolsUrl(devtoolsUrl)">
+												{{devtoolsUrl}}
+											</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+	                    <button type="button" data-ng-click="reconnect()" class="btn btn-default"><span class="glyphicon glyphicon-play"></button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<br/>
 		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" role="tablist" id="contentTabs">
-		  <li><a href="#debuggerTab" role="tab" data-toggle="tab">Debugger</a></li>
-		  <li class="active"><a href="#infoTab" role="tab" data-toggle="tab">Info</a></li>
-		  <li><a href="#blogTab" role="tab" data-toggle="tab">Blog</a></li>
-		  <li><a href="#gitHubTab" role="tab" data-toggle="tab">GitHub</a></li>
-		</ul>
-
-		<!-- Tab panes -->
-		<div class="tab-content">
-		  <div class="tab-pane" id="debuggerTab">
-			<webview id="debuggerview" style="width: 700px; height: 600px;" src="about:blank" />
-		  </div>
-		  <div class="tab-pane active" id="infoTab">
-			<webview id="infoview" style="width: 700px; height: 600px;" src="https://developers.google.com/chrome-developer-tools/docs/debugger-protocol#remote" />
-	  	  </div>
-		  <div class="tab-pane" id="blogTab">
-			<webview id="blogview" style="width: 700px; height: 600px;" src="http://sandipchitale.blogspot.com/2014/05/devtoolsapp.html" />
-	  	  </div>
-		  <div class="tab-pane" id="gitHubTab">
-			<webview id="githubview" style="width: 700px; height: 600px;" src="https://github.com/sandipchitale/DevToolsApp" />
-	  	  </div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<ul class="nav nav-tabs" role="tablist" id="contentTabs">
+						<li>
+							<a href="#debuggerTab" role="tab" data-toggle="tab">Debugger</a>
+						</li>
+						<li class="active">
+							<a href="#infoTab" role="tab" data-toggle="tab">Info</a>
+						</li>
+						<li>
+							<a href="#blogTab" role="tab" data-toggle="tab">Blog</a>
+						</li>
+						<li>
+							<a href="#gitHubTab" role="tab" data-toggle="tab">GitHub</a>
+						</li>
+					</ul>
+			
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div class="tab-pane" id="debuggerTab">
+							<webview id="debuggerview" style="width: 700px; height: 600px;" src="about:blank" />
+						</div>
+						<div class="tab-pane active" id="infoTab">
+							<webview id="infoview" style="width: 700px; height: 600px;" src="https://developers.google.com/chrome-developer-tools/docs/debugger-protocol#remote" />
+						</div>
+						<div class="tab-pane" id="blogTab">
+							<webview id="blogview" style="width: 700px; height: 600px;" src="http://sandipchitale.blogspot.com/2014/05/devtoolsapp.html" />
+						</div>
+						<div class="tab-pane" id="gitHubTab">
+							<webview id="githubview" style="width: 700px; height: 600px;" src="https://github.com/sandipchitale/DevToolsApp" />
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

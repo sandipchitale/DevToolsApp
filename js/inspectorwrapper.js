@@ -11,10 +11,10 @@
 
         debuggerView.style.width = webviewWidth + 'px';
         debuggerView.style.height = (webviewHeight - 110) + 'px';
-        
+
         infoView.style.width = webviewWidth + 'px';
         infoView.style.height = (webviewHeight - 110) + 'px';
-        
+
         blogView.style.width = webviewWidth + 'px';
         blogView.style.height = (webviewHeight - 110) + 'px';
 
@@ -78,10 +78,21 @@
             $scope.config.devtoolsUrl = devtoolsUrl;
         }
 
+        $scope.connectFormShowing = true;
+        $scope.showConnectForm = function() {
+        	$('#connectform').collapse('show');
+        	$scope.connectFormShowing = true;
+        }
+        $scope.hideConnectForm = function() {
+        	$('#connectform').collapse('hide');
+        	$scope.connectFormShowing = false;
+        }
+        
         var debuggerTab = $('#contentTabs a[href="#debuggerTab"]');
         var debuggerview = $('#debuggerview');
-
+       
         $scope.reconnect = function() {
+        	$scope.hideConnectForm();
         	debuggerTab.tab('show');
         	debuggerview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + ($scope.config.devtoolsUrl === 'Builtin' ?  '' : '/#' + $scope.config.devtoolsUrl));
         }
