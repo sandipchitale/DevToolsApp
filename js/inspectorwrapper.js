@@ -10,16 +10,16 @@
         var webviewHeight = windowHeight;
 
         debuggerView.style.width = webviewWidth + 'px';
-        debuggerView.style.height = (webviewHeight - 100) + 'px';
+        debuggerView.style.height = (webviewHeight - 55) + 'px';
 
         infoView.style.width = webviewWidth + 'px';
-        infoView.style.height = (webviewHeight - 100) + 'px';
+        infoView.style.height = (webviewHeight - 55) + 'px';
 
         blogView.style.width = webviewWidth + 'px';
-        blogView.style.height = (webviewHeight - 100) + 'px';
+        blogView.style.height = (webviewHeight - 55) + 'px';
 
         gitHubView.style.width = webviewWidth + 'px';
-        gitHubView.style.height = (webviewHeight - 100) + 'px';
+        gitHubView.style.height = (webviewHeight - 55) + 'px';
     }
 
     window.onresize = doLayout;
@@ -31,7 +31,7 @@
     .run(function() {
         doLayout();
     })
-    .controller('DevToolsController', function($scope, $http) {
+    .controller('DevToolsController', function($scope, $http, $timeout) {
         $scope.config = {
             host: 'localhost',
             port: '9222',
@@ -82,12 +82,12 @@
         $scope.showConnectForm = function() {
         	$('#connectform').collapse('show');
         	$scope.connectFormShowing = true;
-        	doLayout();
+        	$timeout(doLayout, 0);
         }
         $scope.hideConnectForm = function() {
         	$('#connectform').collapse('hide');
         	$scope.connectFormShowing = false;
-        	doLayout();
+        	$timeout(doLayout, 0);
         }
         
         $scope.duplicate = function() {
@@ -99,10 +99,12 @@
         var debuggerTab = $('#contentTabs a[href="#debuggerTab"]');
         var debuggerview = $('#debuggerview');
        
+        $scope.debuggerRunning = false;
         $scope.reconnect = function() {
         	$scope.hideConnectForm();
         	debuggerTab.tab('show');
         	debuggerview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + ($scope.config.devtoolsUrl === 'Builtin' ?  '' : '/#' + $scope.config.devtoolsUrl));
+            $scope.debuggerRunning = true;
         }
 
         $scope.exit = function() {
