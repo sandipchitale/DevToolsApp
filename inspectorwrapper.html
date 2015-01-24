@@ -22,7 +22,10 @@
 				<ul style="-webkit-app-region: no-drag;" class="nav navbar-nav pull-right">
 					<li>
 						<a data-ng-show="connectFormShowing" data-ng-click="hideConnectForm()" href="#"><span class="glyphicon glyphicon-chevron-up"></span></a>
-						<a data-ng-hide="connectFormShowing" data-ng-click="showConnectForm()" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+						<a data-ng-hide="connectFormShowing" data-ng-click="showConnectForm()" href="#" title="Show connection form"><span class="glyphicon glyphicon-chevron-down"></span></a>
+					</li>
+					<li>
+						<a data-ng-click="duplicate()" href="#" title="Clone"><span class="glyphicon glyphicon-new-window"></span></a>
 					</li>
 					<li>
 						<a data-ng-click="exit()" href="#"><span class="glyphicon glyphicon-remove"></span></a>

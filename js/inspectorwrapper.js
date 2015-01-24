@@ -90,6 +90,12 @@
         	doLayout();
         }
         
+        $scope.duplicate = function() {
+        	chrome.runtime.getBackgroundPage(function(backgroundPage) {
+        		backgroundPage.launch();
+        	});
+        }
+        
         var debuggerTab = $('#contentTabs a[href="#debuggerTab"]');
         var debuggerview = $('#debuggerview');
        
