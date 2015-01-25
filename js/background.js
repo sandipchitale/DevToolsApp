@@ -1,6 +1,6 @@
 function launch() {
 	chrome.app.window.create('inspectorwrapper.html', {
-		'width' : 1100,
+		'width' : 1280,
 		'height' : 800,
 		'frame' : 'none'
 	});

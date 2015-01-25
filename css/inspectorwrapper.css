@@ -19,3 +19,14 @@ body {
 	border-bottom-left-radius: 0px;
 	border-left: 0px;
 }
+
+.connectpanel {
+	background-color: #222;
+	padding-top: 10px; 
+	padding-bottom	: 10px; 
+	left: 0;
+	right: 0;
+	border-bottom: 1px solid black;
+	text-align: center;
+	color: #999;
+}
