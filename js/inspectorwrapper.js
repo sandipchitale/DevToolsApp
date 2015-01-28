@@ -98,13 +98,23 @@
         
         var debuggerTab = $('#contentTabs a[href="#debuggerTab"]');
         var debuggerview = $('#debuggerview');
-       
-        $scope.debuggerRunning = false;
+        
+        debuggerview[0].request.onBeforeRequest.addListener(
+                function(details) {
+                	if ("main_frame" === details.type) {
+                		if (details.url.indexOf('?ws=')) {
+                			return {redirectUrl: details.url + '&experiments=true'};
+                		}
+                	}
+                	return {cancel: false};
+                },
+                {urls: ["<all_urls>"]},
+            ["blocking"]);
+        
         $scope.reconnect = function() {
         	$scope.hideConnectForm();
         	debuggerTab.tab('show');
         	debuggerview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + ($scope.config.devtoolsUrl === 'Builtin' ?  '' : '/#' + $scope.config.devtoolsUrl));
-            $scope.debuggerRunning = true;
         }
 
         $scope.exit = function() {
