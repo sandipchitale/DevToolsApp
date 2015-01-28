@@ -102,7 +102,7 @@
         debuggerview[0].request.onBeforeRequest.addListener(
                 function(details) {
                 	if ("main_frame" === details.type) {
-                		if (details.url.indexOf('?ws=')) {
+                		if (details.url.indexOf('?ws=') != -1 && details.url.indexOf('&experiments=true') === -1) {
                 			return {redirectUrl: details.url + '&experiments=true'};
                 		}
                 	}
