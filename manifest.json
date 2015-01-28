@@ -1,7 +1,7 @@
 {
 	"name": "Dev Tools App",
 	"description": "Try any devtools version using this Dev Tools App",
-	"version": "1.11",
+	"version": "1.12",
 	"app": {
 		"background": {
 			"page": "background.html"
