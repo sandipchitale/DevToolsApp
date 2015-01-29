@@ -36,6 +36,7 @@
             host: 'localhost',
             port: '9222',
             devtoolsUrl: 'http://chrome-developer-tools.googlecode.com/git/devtools-frontend/Source/devtools/front_end/inspector.html',
+            experiments: false,
             devtoolsUrls: [
                 'Builtin',
                 'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html',
@@ -101,7 +102,7 @@
         
         debuggerview[0].request.onBeforeRequest.addListener(
                 function(details) {
-                	if ("main_frame" === details.type) {
+                	if ($scope.config.experiments && "main_frame" === details.type) {
                 		if (details.url.indexOf('?ws=') != -1 && details.url.indexOf('&experiments=true') === -1) {
                 			return {redirectUrl: details.url + '&experiments=true'};
                 		}
