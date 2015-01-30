@@ -4,6 +4,7 @@
         var infoView = document.querySelector('#infoview');
         var blogView = document.querySelector('#blogview');
         var gitHubView = document.querySelector('#githubview');
+        var apiView = document.querySelector('#apiview');
         var windowWidth = document.documentElement.clientWidth;
         var windowHeight = document.documentElement.clientHeight;
         var webviewWidth = windowWidth;
@@ -20,6 +21,9 @@
 
         gitHubView.style.width = webviewWidth + 'px';
         gitHubView.style.height = (webviewHeight - 55) + 'px';
+
+        apiView.style.width = webviewWidth + 'px';
+        apiView.style.height = (webviewHeight - 55) + 'px';
     }
 
     window.onresize = doLayout;
@@ -31,7 +35,7 @@
     .run(function() {
         doLayout();
     })
-    .controller('DevToolsController', function($scope, $http, $timeout, $window) {
+    .controller('DevToolsController', function($scope, $http, $timeout) {
         $scope.config = {
             host: 'localhost',
             port: '9222',
@@ -45,7 +49,7 @@
                 'http://sandipchitaleschromedevtoolsrnd.googlecode.com/git/Source/devtools/front_end/inspector.html'
             ]
         }
-
+        
         // Get 25 latest branch numbers from blink
         $http({method: 'GET', url: 'http://src.chromium.org/blink/branches/chromium/'}).
                         success(function(data, status, headers, config) {
@@ -114,7 +118,12 @@
         
         debuggerview[0].addEventListener('newwindow', function(e) {
             e.preventDefault();
-            $window.open(e.targetUrl);
+            
+            var apiView = $('#apiview');
+            apiView.prop('src', e.targetUrl);
+
+            var apiTab = $('#contentTabs a[href="#apiTab"]');
+            apiTab.tab('show');
         });
         
         $scope.reconnect = function() {
