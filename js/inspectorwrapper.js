@@ -31,7 +31,7 @@
     .run(function() {
         doLayout();
     })
-    .controller('DevToolsController', function($scope, $http, $timeout) {
+    .controller('DevToolsController', function($scope, $http, $timeout, $window) {
         $scope.config = {
             host: 'localhost',
             port: '9222',
@@ -111,6 +111,11 @@
                 },
                 {urls: ["<all_urls>"]},
             ["blocking"]);
+        
+        debuggerview[0].addEventListener('newwindow', function(e) {
+            e.preventDefault();
+            $window.open(e.targetUrl);
+        });
         
         $scope.reconnect = function() {
         	$scope.hideConnectForm();
