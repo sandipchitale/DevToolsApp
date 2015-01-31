@@ -43,6 +43,7 @@
             experiments: false,
             devtoolsUrls: [
                 'Builtin',
+                'http://localhost:8090/front_end/inspector.html',
                 'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
