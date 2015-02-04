@@ -46,6 +46,7 @@
                 'http://localhost:8090/front_end/inspector.html',
                 'http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git/devtools-frontend/Source/devtools/front_end/inspector.html',
+                'http://chrome-developer-tools.googlecode.com/git-history/issue453801/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
                 'http://sandipchitaleschromedevtoolsrnd.googlecode.com/git/Source/devtools/front_end/inspector.html'
             ]
