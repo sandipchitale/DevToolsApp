@@ -65,7 +65,7 @@
 							<label class="control-label">/#</label>
 						</div>
 						<div class="form-group">
-							<div class="input-group" style="width: 600px;">
+							<div id="devtoolsurlinputgroup" class="input-group" style="width: 940px;">
 								<input data-ng-model="config.devtoolsUrl" type="text" class="form-control" id="devtoolsUrl" title="URL of devtools frontend code" />
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -79,14 +79,14 @@
 										</li>
 									</ul>
 								</div>
+								<span class="input-group-addon">
+									<label></label><input type="checkbox" ng-model="config.experiments"> Experiments</label>
+								</span>
+								<div class="input-group-btn">
+				                    <button type="button" data-ng-click="reconnect()" class="btn btn-default"><span class="glyphicon glyphicon-play"></button>
+								</div>
 							</div>
 						</div>
-						<div class="checkbox">
-					    	<label>
-								<input type="checkbox" ng-model="config.experiments"> Enable Experiments
-							</label>
-						</div>
-	                    <button type="button" data-ng-click="reconnect()" class="btn btn-default"><span class="glyphicon glyphicon-play"></button>
 					</form>
 				</div>
 			</div>

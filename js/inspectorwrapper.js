@@ -24,6 +24,9 @@
 
         apiView.style.width = webviewWidth + 'px';
         apiView.style.height = (webviewHeight - 55) + 'px';
+        
+        var devtoolsurlinputgroup = document.querySelector('#devtoolsurlinputgroup');
+        devtoolsurlinputgroup.style.width = ((940/1280) * windowWidth).toFixed(0) + 'px';
     }
 
     window.onresize = doLayout;
@@ -70,7 +73,7 @@
                                     }
                                 }
                                 branchNums.sort(function(a, b){return b-a});
-                                branchNums.length = 25;
+                                branchNums.length = 15;
                                 if (branchNums.length > 0) {
                                     for(var j = 0; j < branchNums.length; j++) {
                                         $scope.config.devtoolsUrls.push(
