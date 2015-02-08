@@ -82,7 +82,7 @@
     			" Make sure to enable experiments.";
     	availableInfo[$scope.config.devtoolsUrls[5]] = "Use this to try out" +
     			" Go to member all files (Ctrl+Alt+Shift+P) functionality.";
-    	availableInfo[$scope.config.devtoolsUrls[5]] = "Use this to try out" +
+    	availableInfo[$scope.config.devtoolsUrls[6]] = "Use this to try out" +
 			" JavaScript Object Diagram functionality.";
 
     	$scope.showAvailableInfo = function() {
