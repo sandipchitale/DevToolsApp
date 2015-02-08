@@ -56,14 +56,15 @@
         }
 
         var availableInfo = {};
-        availableInfo[$scope.config.devtoolsUrls[0]] = "This will use the target browser's devtools.";
-    	availableInfo[$scope.config.devtoolsUrls[1]] = "This allows you to try devtools served from a local server.";
-    	availableInfo[$scope.config.devtoolsUrls[2]] = "This allows you to try latest devtools from blink repository.";
+        availableInfo[$scope.config.devtoolsUrls[0]] = "Use the target Chrome's built-in devtools.";
+    	availableInfo[$scope.config.devtoolsUrls[1]] = "Use devtools served from a local server.";
+    	availableInfo[$scope.config.devtoolsUrls[2]] = "Use latest devtools from blink repository.";
     	availableInfo[$scope.config.devtoolsUrls[3]] = "Use this to try out Highlight changed properties functionality." +
     			" Make sure to enable experiments.";
     	availableInfo[$scope.config.devtoolsUrls[4]] = "Use this to try out" +
     			" Show constructor definition and" +
     			" Show function|class documentation functionality." +
+    			" The documentation will be loaded in API tab." +
     			" Make sure to enable experiments.";
     	availableInfo[$scope.config.devtoolsUrls[5]] = "Use this to try out" +
     			" Go to member all files (Ctrl+Alt+Shift+P) functionality.";
