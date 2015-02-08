@@ -66,7 +66,10 @@
 						</div>
 						<div class="form-group">
 							<div id="devtoolsurlinputgroup" class="input-group" style="width: 940px;">
-								<input data-ng-model="config.devtoolsUrl" type="text" class="form-control" id="devtoolsUrl" title="URL of devtools frontend code" />
+								<input id="devtoolsUrl" type="text" class="form-control" title="Devtools URL"
+									data-ng-model="config.devtoolsUrl"
+									data-ng-click="showAvailableInfo()" 
+									data-toggle="popover" data-placement="bottom" data-trigger="manual" data-container="body"/>
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 										<span class="caret"></span>

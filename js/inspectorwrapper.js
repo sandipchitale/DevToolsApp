@@ -24,7 +24,7 @@
 
         apiView.style.width = webviewWidth + 'px';
         apiView.style.height = (webviewHeight - 55) + 'px';
-        
+
         var devtoolsurlinputgroup = document.querySelector('#devtoolsurlinputgroup');
         devtoolsurlinputgroup.style.width = ((940/1280) * windowWidth).toFixed(0) + 'px';
     }
@@ -51,12 +51,52 @@
                 'http://chrome-developer-tools.googlecode.com/git/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git-history/issue453801/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git-history/allfilesoutline/devtools-frontend/Source/devtools/front_end/inspector.html',
-                'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
-                'http://sandipchitaleschromedevtoolsrnd.googlecode.com/git/Source/devtools/front_end/inspector.html'
+                'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html'
             ]
         }
-        
-        // Get 25 latest branch numbers from blink
+
+        var availableInfo = {};
+        availableInfo[$scope.config.devtoolsUrls[0]] = "This will use the target browser's devtools.";
+    	availableInfo[$scope.config.devtoolsUrls[1]] = "This allows you to try devtools served from a local server.";
+    	availableInfo[$scope.config.devtoolsUrls[2]] = "This allows you to try latest devtools from blink repository.";
+    	availableInfo[$scope.config.devtoolsUrls[3]] = "Use this to try out Highlight changed properties functionality." +
+    			" Make sure to enable experiments.";
+    	availableInfo[$scope.config.devtoolsUrls[4]] = "Use this to try out" +
+    			" Show constructor definition and" +
+    			" Show function|class documentation functionality." +
+    			" Make sure to enable experiments.";
+    	availableInfo[$scope.config.devtoolsUrls[5]] = "Use this to try out" +
+    			" Go to member all files (Ctrl+Alt+Shift+P) functionality.";
+    	availableInfo[$scope.config.devtoolsUrls[5]] = "Use this to try out" +
+			" JavaScript Object Diagram functionality.";
+
+    	$scope.showAvailableInfo = function() {
+    		var infoPopoverContent = availableInfo[$scope.config.devtoolsUrl];
+    		$('#devtoolsUrl').attr('data-content', infoPopoverContent)
+    		$timeout(function() {
+    			$('#devtoolsUrl').popover(infoPopoverContent ? 'show' : 'hide');
+    			$timeout(function() {
+    				$scope.hideAvailableInfo();
+        		}, 5000);
+    		}, 0);
+    	};
+
+    	$scope.hideAvailableInfo = function() {
+    		$('#devtoolsUrl').popover('hide');
+    	};
+
+//    	$('#devtoolsUrl').blur(function() {
+//    		$scope.$apply(function() {
+//    			$scope.hideAvailableInfo();
+//    		});
+//    	});
+    	
+    	$scope.$watch('config.devtoolsUrl', function (newValue, oldValue) {
+    		if (newValue !== oldValue)
+    			$scope.showAvailableInfo();
+	    });
+    	
+    	// Get 25 latest branch numbers from blink
         $http({method: 'GET', url: 'http://src.chromium.org/blink/branches/chromium/'}).
                         success(function(data, status, headers, config) {
                             var el = document.createElement( 'div' );
@@ -96,20 +136,21 @@
         	$timeout(doLayout, 0);
         }
         $scope.hideConnectForm = function() {
+        	$scope.hideAvailableInfo();
         	$('#connectform').collapse('hide');
         	$scope.connectFormShowing = false;
         	$timeout(doLayout, 0);
         }
-        
+
         $scope.duplicate = function() {
         	chrome.runtime.getBackgroundPage(function(backgroundPage) {
         		backgroundPage.launch();
         	});
         }
-        
+
         var debuggerTab = $('#contentTabs a[href="#debuggerTab"]');
         var debuggerview = $('#debuggerview');
-        
+
         debuggerview[0].request.onBeforeRequest.addListener(
                 function(details) {
                 	if ($scope.config.experiments && "main_frame" === details.type) {
@@ -121,17 +162,17 @@
                 },
                 {urls: ["<all_urls>"]},
             ["blocking"]);
-        
+
         debuggerview[0].addEventListener('newwindow', function(e) {
             e.preventDefault();
-            
+
             var apiView = $('#apiview');
             apiView.prop('src', e.targetUrl);
 
             var apiTab = $('#contentTabs a[href="#apiTab"]');
             apiTab.tab('show');
         });
-        
+
         $scope.reconnect = function() {
         	$scope.hideConnectForm();
         	debuggerTab.tab('show');
