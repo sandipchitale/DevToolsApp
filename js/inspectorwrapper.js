@@ -26,19 +26,24 @@
         apiView.style.height = (webviewHeight - 55) + 'px';
 
         var devtoolsurlinputgroup = document.querySelector('#devtoolsurlinputgroup');
-        devtoolsurlinputgroup.style.width = ((940/1280) * windowWidth).toFixed(0) + 'px';
+        devtoolsurlinputgroup.style.width = ((920/1280) * windowWidth).toFixed(0) + 'px';
     }
 
     window.onresize = doLayout;
 
     angular.module('DevToolsApp', [])
+    .constant('version', chrome.runtime.getManifest().version)
     .config(function() {
 
     })
     .run(function() {
         doLayout();
     })
-    .controller('DevToolsController', function($scope, $http, $timeout) {
+    .controller('DevToolsController', function($scope, $http, $timeout, version) {
+    	$scope.app = {
+    		version: version
+    	};
+
         $scope.config = {
             host: 'localhost',
             port: '9222',
@@ -53,7 +58,16 @@
                 'http://chrome-developer-tools.googlecode.com/git-history/allfilesoutline/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html'
             ]
-        }
+        };
+        
+    	$scope.copyUrl = function() {
+    		$('#clipboard').val("http://" + 
+    				$scope.config.host +
+    				":" + $scope.config.port + 
+    				($scope.config.devtoolsUrl === 'Builtin' ?  "" : ("/#" + $scope.config.devtoolsUrl))).select();
+		    document.execCommand('copy');
+		    $('#clipboard').val('');
+    	};
 
         var availableInfo = {};
         availableInfo[$scope.config.devtoolsUrls[0]] = "Use the target Chrome's built-in devtools.";

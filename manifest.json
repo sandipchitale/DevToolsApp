@@ -1,13 +1,13 @@
 {
 	"name": "Dev Tools App",
 	"description": "Try any devtools version using this Dev Tools App",
-	"version": "1.22",
+	"version": "1.24",
 	"app": {
 		"background": {
 			"page": "background.html"
 		}
 	},
-	"permissions": ["webview", "http://src.chromium.org/"],
+	"permissions": ["webview", "http://src.chromium.org/", "clipboardWrite"],
 	"icons": {
 		"16": "devtools16.png",
 		"128": "devtools128.png"

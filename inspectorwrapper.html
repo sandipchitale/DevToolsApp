@@ -17,7 +17,7 @@
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div style="-webkit-app-region: no-drag;" class="navbar-header">
-					<a class="navbar-brand" href="#"><img style="vertical-align: middle" src="devtools16.png"/> DevTools App</a>
+					<a class="navbar-brand" href="#"><img style="vertical-align: middle" src="devtools16.png"/> DevTools App <small>{{app.version}}</small></a>
 				</div>
 				<ul style="-webkit-app-region: no-drag;" class="nav navbar-nav pull-right">
 					<li>
@@ -65,12 +65,12 @@
 							<label class="control-label">/#</label>
 						</div>
 						<div class="form-group">
-							<div id="devtoolsurlinputgroup" class="input-group" style="width: 940px;">
+							<div id="devtoolsurlinputgroup" class="input-group" style="width: 920px;">
 								<input id="devtoolsUrl" type="text" class="form-control" title="Devtools URL"
 									data-ng-model="config.devtoolsUrl"
 									data-ng-click="showAvailableInfo()" 
 									data-toggle="popover" data-placement="bottom" data-trigger="manual" data-container="body"/>
-								<div class="input-group-btn">
+								<span class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 										<span class="caret"></span>
 									</button>
@@ -81,13 +81,16 @@
 											</button>
 										</li>
 									</ul>
-								</div>
+				                    <button type="button" data-ng-click="copyUrl()" class="btn btn-default" title="Copy the URL to clipboard for use in Chrome">
+				                    	<span class="glyphicon glyphicon-share"></span>
+			                    	</button>
+								</span>
 								<span class="input-group-addon">
 									<label></label><input type="checkbox" ng-model="config.experiments"> Experiments</label>
 								</span>
-								<div class="input-group-btn">
-				                    <button type="button" data-ng-click="reconnect()" class="btn btn-default"><span class="glyphicon glyphicon-play"></button>
-								</div>
+								<span class="input-group-btn">
+				                    <button type="button" data-ng-click="reconnect()" class="btn btn-default"><span class="glyphicon glyphicon-play"></span></button>
+								</span>
 							</div>
 						</div>
 					</form>
@@ -115,6 +118,9 @@
 				</div>
 			</div>
 		</div>
+
+        <textarea id="clipboard" size="0"></textarea>
+
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="js/jquery.min.js"></script>
