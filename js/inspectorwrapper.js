@@ -59,11 +59,11 @@
                 'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html'
             ]
         };
-        
+
     	$scope.copyUrl = function() {
-    		$('#clipboard').val("http://" + 
+    		$('#clipboard').val("http://" +
     				$scope.config.host +
-    				":" + $scope.config.port + 
+    				":" + $scope.config.port +
     				($scope.config.devtoolsUrl === 'Builtin' ?  "" : ("/#" + $scope.config.devtoolsUrl))).select();
 		    document.execCommand('copy');
 		    $('#clipboard').val('');
@@ -105,12 +105,12 @@
 //    			$scope.hideAvailableInfo();
 //    		});
 //    	});
-    	
+
     	$scope.$watch('config.devtoolsUrl', function (newValue, oldValue) {
     		if (newValue !== oldValue)
     			$scope.showAvailableInfo();
 	    });
-    	
+
     	// Get 25 latest branch numbers from blink
         $http({method: 'GET', url: 'http://src.chromium.org/blink/branches/chromium/'}).
                         success(function(data, status, headers, config) {
@@ -192,6 +192,18 @@
         	$scope.hideConnectForm();
         	debuggerTab.tab('show');
         	debuggerview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + ($scope.config.devtoolsUrl === 'Builtin' ?  '' : '/#' + $scope.config.devtoolsUrl));
+        }
+
+        $scope.minimize = function() {
+    		chrome.app.window.current().minimize();
+        }
+        
+        $scope.toggleMaximize = function() {
+        	if (chrome.app.window.current().isMaximized()) {
+        		chrome.app.window.current().restore();
+        	} else {
+        		chrome.app.window.current().maximize();
+        	}
         }
 
         $scope.exit = function() {
