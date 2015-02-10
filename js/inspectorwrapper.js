@@ -26,7 +26,7 @@
         apiView.style.height = (webviewHeight - 55) + 'px';
 
         var devtoolsurlinputgroup = document.querySelector('#devtoolsurlinputgroup');
-        devtoolsurlinputgroup.style.width = ((780/1280) * windowWidth).toFixed(0) + 'px';
+        devtoolsurlinputgroup.style.width = ((830/1280) * windowWidth).toFixed(0) + 'px';
     }
 
     window.onresize = doLayout;

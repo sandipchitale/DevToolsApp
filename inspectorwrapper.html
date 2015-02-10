@@ -56,46 +56,44 @@
 		</nav>
 		
 		<div class="connectpanel collapse in container-fluid" id="connectform">
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12">
-					<form class="form-inline" role="form">
-						<div class="form-group">
-							<label for="host" class="control-label">http://</label>
-							<input data-ng-model="config.host" class="form-control" placeholder="localhost" size="4" title="Host where the debug target is running">
-							<label class="control-label">:</label>
-							<input data-ng-model="config.port" class="form-control" placeholder="9222" size="1" title="Port specified in --remote-debugging-port={{config.port}} when launching target Chrome">
-							<label class="control-label">/#</label>
-						</div>
-						<div class="form-group">
-							<div id="devtoolsurlinputgroup" class="input-group" style="width: 700px;">
-								<input id="devtoolsUrl" type="text" class="form-control" title="Devtools URL"
-									data-ng-model="config.devtoolsUrl"
-									data-ng-click="showAvailableInfo()" 
-									data-toggle="popover" data-placement="bottom" data-trigger="manual" data-container="body"/>
-							</div>
-						</div>
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu pull-right" style="background-color: white !important;">
-							<li data-ng-repeat="devtoolsUrl in config.devtoolsUrls">
-								<button class="btn btn-default btn-block" style="text-align: left !important; padding-left: 5px;padding-right: 5px;" data-ng-click="setDevtoolsUrl(devtoolsUrl)">
-									{{devtoolsUrl}}
-								</button>
-							</li>
-						</ul>
-	                    <button type="button" data-ng-click="copyUrl()" class="btn btn-default" title="Copy the URL to clipboard for use in Chrome">
-	                    	<span class="glyphicon glyphicon-copy"></span>
-                    	</button>
-                    	<div class="checkbox">
-						    <label>
-						        <input type="checkbox" ng-model="config.experiments"> Experiments
-						    </label>
-						</div>
-	                    <button type="button" data-ng-click="reconnect()" class="btn btn-default"><span class="glyphicon glyphicon-play"></span></button>
-					</form>
+			<form class="form-inline" role="form">
+				<div class="form-group">
+					<label for="host" class="control-label">http://</label>
+					<input data-ng-model="config.host" class="form-control" placeholder="localhost" size="4" title="Host where the debug target is running">
+					<label class="control-label">:</label>
+					<input data-ng-model="config.port" class="form-control" placeholder="9222" size="1" title="Port specified in --remote-debugging-port={{config.port}} when launching target Chrome">
+					<label class="control-label">/#</label>
 				</div>
-			</div>
+				<div class="form-group">
+					<div id="devtoolsurlinputgroup" class="input-group">
+						<input id="devtoolsUrl" type="text" class="form-control" title="Devtools URL"
+							data-ng-model="config.devtoolsUrl"
+							data-ng-click="showAvailableInfo()" 
+							data-toggle="popover" data-placement="bottom" data-trigger="manual" data-container="body"/>
+						<span class="input-group-btn" style="width: 1% !important">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu pull-right" style="background-color: white !important;">
+								<li data-ng-repeat="devtoolsUrl in config.devtoolsUrls">
+									<button class="btn btn-default btn-block" style="text-align: left !important; padding-left: 5px;padding-right: 5px;" data-ng-click="setDevtoolsUrl(devtoolsUrl)">
+										{{devtoolsUrl}}
+									</button>
+								</li>
+							</ul>
+						</span>
+					</div>
+				</div>
+                <button type="button" data-ng-click="copyUrl()" class="btn btn-default" title="Copy the URL to clipboard for use in Chrome">
+                	<span class="glyphicon glyphicon-copy"></span>
+            	</button>
+            	<div class="checkbox">
+				    <label>
+				        <input type="checkbox" ng-model="config.experiments"> Experiments
+				    </label>
+				</div>
+                <button type="button" data-ng-click="reconnect()" class="btn btn-default"><span class="glyphicon glyphicon-play"></span></button>
+			</form>
 		</div>
 		<!-- Nav tabs -->
 		<div>
