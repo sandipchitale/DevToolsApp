@@ -10,6 +10,7 @@
 
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.css" rel="stylesheet">
+		<link href="css/angular-csp.css" rel="stylesheet">
 		<link href="css/inspectorwrapper.css" rel="stylesheet" type="text/css">
 	</head>
 	<body data-ng-controller="DevToolsController">
@@ -17,8 +18,9 @@
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div style="-webkit-app-region: no-drag;" class="navbar-header">
-					<a class="navbar-brand" href="#"><img style="vertical-align: middle" src="devtools16.png"/> DevTools App <small>{{app.version}}</small></a>
+					<a class="navbar-brand" href="#"><img style="vertical-align: middle" src="devtools16.png"/></a>
 				</div>
+				<h4 class="navbar-text"> DevTools App <small>{{app.version}}</small></h4>
 				<ul style="-webkit-app-region: no-drag;" class="nav navbar-nav pull-right">
 					<li>
 						<ul class="nav nav-pills" id="contentTabs">
@@ -59,40 +61,38 @@
 					<form class="form-inline" role="form">
 						<div class="form-group">
 							<label for="host" class="control-label">http://</label>
-							<input data-ng-model="config.host" class="form-control" placeholder="localhost" size="10" title="Host where the debug target is running">
+							<input data-ng-model="config.host" class="form-control" placeholder="localhost" size="4" title="Host where the debug target is running">
 							<label class="control-label">:</label>
-							<input data-ng-model="config.port" class="form-control" placeholder="9222" size="4" title="Port specified in --remote-debugging-port={{config.port}} when launching target Chrome">
+							<input data-ng-model="config.port" class="form-control" placeholder="9222" size="1" title="Port specified in --remote-debugging-port={{config.port}} when launching target Chrome">
 							<label class="control-label">/#</label>
 						</div>
 						<div class="form-group">
-							<div id="devtoolsurlinputgroup" class="input-group" style="width: 920px;">
+							<div id="devtoolsurlinputgroup" class="input-group" style="width: 700px;">
 								<input id="devtoolsUrl" type="text" class="form-control" title="Devtools URL"
 									data-ng-model="config.devtoolsUrl"
 									data-ng-click="showAvailableInfo()" 
 									data-toggle="popover" data-placement="bottom" data-trigger="manual" data-container="body"/>
-								<span class="input-group-btn">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu pull-right" style="background-color: white !important;">
-										<li data-ng-repeat="devtoolsUrl in config.devtoolsUrls">
-											<button class="btn btn-default btn-block" style="text-align: left !important; padding-left: 5px;padding-right: 5px;" data-ng-click="setDevtoolsUrl(devtoolsUrl)">
-												{{devtoolsUrl}}
-											</button>
-										</li>
-									</ul>
-				                    <button type="button" data-ng-click="copyUrl()" class="btn btn-default" title="Copy the URL to clipboard for use in Chrome">
-				                    	<span class="glyphicon glyphicon-share"></span>
-			                    	</button>
-								</span>
-								<span class="input-group-addon">
-									<label></label><input type="checkbox" ng-model="config.experiments"> Experiments</label>
-								</span>
-								<span class="input-group-btn">
-				                    <button type="button" data-ng-click="reconnect()" class="btn btn-default"><span class="glyphicon glyphicon-play"></span></button>
-								</span>
 							</div>
 						</div>
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu pull-right" style="background-color: white !important;">
+							<li data-ng-repeat="devtoolsUrl in config.devtoolsUrls">
+								<button class="btn btn-default btn-block" style="text-align: left !important; padding-left: 5px;padding-right: 5px;" data-ng-click="setDevtoolsUrl(devtoolsUrl)">
+									{{devtoolsUrl}}
+								</button>
+							</li>
+						</ul>
+	                    <button type="button" data-ng-click="copyUrl()" class="btn btn-default" title="Copy the URL to clipboard for use in Chrome">
+	                    	<span class="glyphicon glyphicon-copy"></span>
+                    	</button>
+                    	<div class="checkbox">
+						    <label>
+						        <input type="checkbox" ng-model="config.experiments"> Experiments
+						    </label>
+						</div>
+	                    <button type="button" data-ng-click="reconnect()" class="btn btn-default"><span class="glyphicon glyphicon-play"></span></button>
 					</form>
 				</div>
 			</div>
