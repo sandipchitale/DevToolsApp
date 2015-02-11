@@ -56,7 +56,8 @@
                 'http://chrome-developer-tools.googlecode.com/git/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git-history/issue453801/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git-history/allfilesoutline/devtools-frontend/Source/devtools/front_end/inspector.html',
-                'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html'
+                'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
+                'http://src.chromium.org/blink/branches/chromium/BRANCHNUM/Source/devtools/front_end/inspector.html'
             ]
         };
 
@@ -128,12 +129,13 @@
                                     }
                                 }
                                 branchNums.sort(function(a, b){return b-a});
-                                branchNums.length = 15;
+                                branchNums.length = 100;
                                 if (branchNums.length > 0) {
-                                    for(var j = 0; j < branchNums.length; j++) {
-                                        $scope.config.devtoolsUrls.push(
-                                            'http://src.chromium.org/blink/branches/chromium/' + branchNums[j] +  '/Source/devtools/front_end/inspector.html')
+                                	availableInfo[$scope.config.devtoolsUrls[7]] = "Use devtools from blink repository branches. Set BRANCHNUM to one of ";
+                                	for(var j = 0; j < branchNums.length; j++) {
+                                		availableInfo[$scope.config.devtoolsUrls[7]] += (j > 0 ? ", " : "") + branchNums[j];
                                     }
+                                	availableInfo[$scope.config.devtoolsUrls[7]] += " ...";
                                 }
                             }
                         }).
@@ -189,6 +191,10 @@
         });
 
         $scope.reconnect = function() {
+        	if ($scope.config.devtoolsUrl === $scope.config.devtoolsUrls[7]) {
+        		$scope.showAvailableInfo();
+        		return;
+        	}
         	$scope.hideConnectForm();
         	debuggerTab.tab('show');
         	debuggerview.prop('src', 'http://' + $scope.config.host + ':' + $scope.config.port + ($scope.config.devtoolsUrl === 'Builtin' ?  '' : '/#' + $scope.config.devtoolsUrl));
