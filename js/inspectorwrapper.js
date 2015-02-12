@@ -109,38 +109,42 @@
 
     	$scope.$watch('config.devtoolsUrl', function (newValue, oldValue) {
     		if (newValue !== oldValue)
-    			$scope.showAvailableInfo();
+    			if (newValue === $scope.config.devtoolsUrls[7]) {
+    				// Get 25 latest branch numbers from blink
+    				$http({method: 'GET', url: 'http://src.chromium.org/blink/branches/chromium/'}).
+    				success(function(data, status, headers, config) {
+    					var el = document.createElement( 'div' );
+    					el.innerHTML = data;
+    					var lis = el.getElementsByTagName('li');
+    					if (lis) {
+    						var branchNums = [];
+    						for (var i = 0; i < lis.length; i++) {
+    							if (lis[i] && lis[i].firstChild && lis[i].firstChild.firstChild && lis[i].firstChild.firstChild.textContent) {
+    								var branchNum = parseInt(lis[i].firstChild.firstChild.textContent);
+    								if (!isNaN(branchNum)) {
+    									branchNums.push(branchNum);
+    								}
+    							}
+    						}
+    						branchNums.sort(function(a, b){return b-a});
+    						branchNums.length = 100;
+    						if (branchNums.length > 0) {
+    							availableInfo[$scope.config.devtoolsUrls[7]] = "Use devtools from blink repository branches. Change BRANCHNUM in URL above to one of ";
+    							for(var j = 0; j < branchNums.length; j++) {
+    								availableInfo[$scope.config.devtoolsUrls[7]] += (j > 0 ? ", " : "") + branchNums[j];
+    							}
+    							availableInfo[$scope.config.devtoolsUrls[7]] += " ...";
+    						}
+    					}
+    					$scope.showAvailableInfo();
+    				}).
+    				error(function(data, status, headers, config) {
+    				});
+    			} else {
+    				$scope.showAvailableInfo();
+    			}
 	    });
 
-    	// Get 25 latest branch numbers from blink
-        $http({method: 'GET', url: 'http://src.chromium.org/blink/branches/chromium/'}).
-                        success(function(data, status, headers, config) {
-                            var el = document.createElement( 'div' );
-                            el.innerHTML = data;
-                            var lis = el.getElementsByTagName('li');
-                            if (lis) {
-                                var branchNums = [];
-                                for (var i = 0; i < lis.length; i++) {
-                                    if (lis[i] && lis[i].firstChild && lis[i].firstChild.firstChild && lis[i].firstChild.firstChild.textContent) {
-                                        var branchNum = parseInt(lis[i].firstChild.firstChild.textContent);
-                                        if (!isNaN(branchNum)) {
-                                            branchNums.push(branchNum);
-                                        }
-                                    }
-                                }
-                                branchNums.sort(function(a, b){return b-a});
-                                branchNums.length = 100;
-                                if (branchNums.length > 0) {
-                                	availableInfo[$scope.config.devtoolsUrls[7]] = "Use devtools from blink repository branches. Set BRANCHNUM to one of ";
-                                	for(var j = 0; j < branchNums.length; j++) {
-                                		availableInfo[$scope.config.devtoolsUrls[7]] += (j > 0 ? ", " : "") + branchNums[j];
-                                    }
-                                	availableInfo[$scope.config.devtoolsUrls[7]] += " ...";
-                                }
-                            }
-                        }).
-                        error(function(data, status, headers, config) {
-                        });
 
         $scope.setDevtoolsUrl = function(devtoolsUrl) {
             $scope.config.devtoolsUrl = devtoolsUrl;
