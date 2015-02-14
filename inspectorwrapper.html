@@ -118,6 +118,24 @@
 					<webview id="githubview" style="width: 700px; height: 500px;" src="https://github.com/sandipchitale/DevToolsApp" />
 				</div>
 				<div class="tab-pane" id="apiTab">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<form class="form-inline" role="form">
+									<div class="form-group">
+										<div class="input-group">
+											<input id="api" type="text" class="form-control" placeholder="Search for Web and JavaScript API e.g. Window, HTMLElement, RegExp, setTimeout" data-ng-model="api"/>
+											<span class="input-group-btn" style="width: 1% !important">
+												<button type="button" class="btn btn-default" data-ng-click="showApi(api)">
+													<span class="glyphicon glyphicon glyphicon-book"></span>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<webview id="apiview" style="width: 700px; height: 500px;" src="https://developer.chrome.com/extensions/devtools" />
 				</div>
 			</div>

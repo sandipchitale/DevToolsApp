@@ -1,4 +1,5 @@
 (function(){
+	var connectFormShowing = true;
     function doLayout() {
         var debuggerView = document.querySelector('#debuggerview');
         var infoView = document.querySelector('#infoview');
@@ -10,20 +11,22 @@
         var webviewWidth = windowWidth;
         var webviewHeight = windowHeight;
 
+        var offset = (connectFormShowing ? 0 : 55);
+
         debuggerView.style.width = webviewWidth + 'px';
-        debuggerView.style.height = (webviewHeight - 55) + 'px';
+        debuggerView.style.height = (webviewHeight - 110 + offset) + 'px';
 
         infoView.style.width = webviewWidth + 'px';
-        infoView.style.height = (webviewHeight - 55) + 'px';
+        infoView.style.height = (webviewHeight - 110 + offset) + 'px';
 
         blogView.style.width = webviewWidth + 'px';
-        blogView.style.height = (webviewHeight - 55) + 'px';
+        blogView.style.height = (webviewHeight - 110 + offset) + 'px';
 
         gitHubView.style.width = webviewWidth + 'px';
-        gitHubView.style.height = (webviewHeight - 55) + 'px';
+        gitHubView.style.height = (webviewHeight - 110 + offset) + 'px';
 
         apiView.style.width = webviewWidth + 'px';
-        apiView.style.height = (webviewHeight - 55) + 'px';
+        apiView.style.height = (webviewHeight - 130 + offset) + 'px';
 
         var devtoolsurlinputgroup = document.querySelector('#devtoolsurlinputgroup');
         devtoolsurlinputgroup.style.width = ((830/1280) * windowWidth).toFixed(0) + 'px';
@@ -154,12 +157,14 @@
         $scope.showConnectForm = function() {
         	$('#connectform').collapse('show');
         	$scope.connectFormShowing = true;
+        	connectFormShowing = true;
         	$timeout(doLayout, 0);
         }
         $scope.hideConnectForm = function() {
         	$scope.hideAvailableInfo();
         	$('#connectform').collapse('hide');
         	$scope.connectFormShowing = false;
+        	connectFormShowing = false;
         	$timeout(doLayout, 0);
         }
 
@@ -214,6 +219,45 @@
         	} else {
         		chrome.app.window.current().maximize();
         	}
+        }
+        
+        $scope.api = "";
+        
+        /**
+         * @param {string} api
+         */
+        $scope.showApi = function(api) {
+        	if (!api || api === "")
+        		return;
+            var urlPrefixes = ["https://developer.mozilla.org/en-US/docs/Web/API/{api}",
+                               "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/{api}",
+                               "https://developer.mozilla.org/de/docs/DOM/window.{api}"];
+
+            const apiToken = "{api}";
+            var xhr = new XMLHttpRequest();
+
+            function showPage(i) {
+                var url = urlPrefixes[i];
+                if (!url)
+                    return;
+                url = url.replace(apiToken, api);
+                xhr.open("HEAD", url, true);
+                xhr.onreadystatechange = function()
+                {
+                    if (xhr.readyState !== XMLHttpRequest.DONE)
+                        return;
+                    xhr.onreadystatechange = null;
+                    if (xhr.status !== 200) {
+                        showPage(i+1);
+                        return;
+                    }
+                    xhr.onreadystatechange = null;
+                    var apiView = $('#apiview');
+                    apiView.prop('src', url);
+                }
+                xhr.send(null);
+            }
+            showPage(0);
         }
 
         $scope.exit = function() {
