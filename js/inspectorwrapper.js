@@ -50,7 +50,7 @@
         $scope.config = {
             host: 'localhost',
             port: '9222',
-            devtoolsUrl: 'http://chrome-developer-tools.googlecode.com/git-history/allfilesoutline/devtools-frontend/Source/devtools/front_end/inspector.html',
+            devtoolsUrl: 'http://chrome-developer-tools.googlecode.com/git-history/enhanced/devtools-frontend/Source/devtools/front_end/inspector.html',
             experiments: false,
             devtoolsUrls: [
                 'Builtin',
@@ -60,6 +60,7 @@
                 'http://chrome-developer-tools.googlecode.com/git-history/issue453801/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git-history/allfilesoutline/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
+                'http://chrome-developer-tools.googlecode.com/git-history/enhanced/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://src.chromium.org/blink/branches/chromium/BRANCHNUM/Source/devtools/front_end/inspector.html'
             ]
         };
@@ -88,6 +89,13 @@
     			" Go to member all files (Ctrl+Alt+Shift+P) functionality.";
     	availableInfo[$scope.config.devtoolsUrls[6]] = "Use this to try out" +
 			" JavaScript Object Diagram functionality.";
+    	availableInfo[$scope.config.devtoolsUrls[7]] = "Use this to try out" +
+			" Highlight changed properties and" +
+			" Go to member all files (Ctrl+Alt+Shift+P) and" +
+			" Show constructor definition and" +
+			" Show function|class documentation functionality." +
+			" The documentation will be loaded in API tab." +
+			" Make sure to enable experiments.";
 
     	$scope.showAvailableInfo = function() {
     		var infoPopoverContent = availableInfo[$scope.config.devtoolsUrl];
@@ -103,12 +111,6 @@
     	$scope.hideAvailableInfo = function() {
     		$('#devtoolsUrl').popover('hide');
     	};
-
-//    	$('#devtoolsUrl').blur(function() {
-//    		$scope.$apply(function() {
-//    			$scope.hideAvailableInfo();
-//    		});
-//    	});
 
     	$scope.$watch('config.devtoolsUrl', function (newValue, oldValue) {
     		if (newValue !== oldValue)
@@ -132,11 +134,11 @@
     						branchNums.sort(function(a, b){return b-a});
     						branchNums.length = 100;
     						if (branchNums.length > 0) {
-    							availableInfo[$scope.config.devtoolsUrls[7]] = "Use devtools from blink repository branches. Change BRANCHNUM in URL above to one of ";
+    							availableInfo[$scope.config.devtoolsUrls[8]] = "Use devtools from blink repository branches. Change BRANCHNUM in URL above to one of ";
     							for(var j = 0; j < branchNums.length; j++) {
-    								availableInfo[$scope.config.devtoolsUrls[7]] += (j > 0 ? ", " : "") + branchNums[j];
+    								availableInfo[$scope.config.devtoolsUrls[8]] += (j > 0 ? ", " : "") + branchNums[j];
     							}
-    							availableInfo[$scope.config.devtoolsUrls[7]] += " ...";
+    							availableInfo[$scope.config.devtoolsUrls[8]] += " ...";
     						}
     					}
     					$scope.showAvailableInfo();
@@ -200,7 +202,7 @@
         });
 
         $scope.reconnect = function() {
-        	if ($scope.config.devtoolsUrl === $scope.config.devtoolsUrls[7]) {
+        	if ($scope.config.devtoolsUrl === $scope.config.devtoolsUrls[8]) {
         		$scope.showAvailableInfo();
         		return;
         	}
