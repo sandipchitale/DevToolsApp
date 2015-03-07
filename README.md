@@ -7,14 +7,13 @@ How to run
 ==========
 
 * Download and install Chrome
-* Run it e.g.
+* Run it like so:
 
 ```bat
 > chrome --remote-debugging-port=9222 --no-first-run
 ```
 
-Load page to be debugged in it
-
+* Load page to be debugged in it
 * Install DevToolsApp from [Chrome Web Store](https://chrome.google.com/webstore/detail/dev-tools-app/eichfopopofffkbhjgbabdegakcdmpkm?hl=en-US).
 * Launch it
 * Select the desired devtools from preconfigured list or type URL of the devtools you want to use
