@@ -22,19 +22,7 @@ Load page to be debugged in it
 * Select the page to debug from the list of Inspectable pages by clicking on it
 * Voila, it should load the selected devtools
 
-Select the URL
-
-| Devtools URL | Description | Enable Experiments |
-|--------------|-------------|--------------------|
-| Builtin | Use target Chrome's devtools | As needed |
-| http://localhost:8090/front_end/inspector.html | Use locally served devtools if you are developing lccally | As needed |
-| http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html | Latest devtools from blink repository | As needed |
-| http://chrome-developer-tools.googlecode.com/git/devtools-frontend/Source/devtools/front_end/inspector.html | Use this to try out Highlight changed properties functionality | Yes |
-| http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html | Use this to try out Show function or constructor documentation functionality | Yes |
-| http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html | Use this to try out Go to member all files (Ctrl+Alt+Shift+P) functionality | No |
-| http://src.chromium.org/blink/trunk/Source/devtools/front_end/inspector.html | Use this to try out JavaScript Object Diagram functionality | No |
-| http://src.chromium.org/blink/branches/chromium/BRANCHNUM/Source/devtools/front_end/inspector.html | Latest devtools from blink repository branches | As needed |
-
+Once you launch the app, click in the devtools URL input box. It will show the popup with information about the devtools and wheather or not you need to select experiments checkbox.
 
 Known limitations
 =================
