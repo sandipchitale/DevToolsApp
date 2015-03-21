@@ -75,37 +75,56 @@
     	};
 
         var availableInfo = {};
-        availableInfo[$scope.config.devtoolsUrls[0]] = "Use the target Chrome's built-in devtools.";
-    	availableInfo[$scope.config.devtoolsUrls[1]] = "Use devtools served from a local server.";
-    	availableInfo[$scope.config.devtoolsUrls[2]] = "Use latest devtools from blink repository.";
-    	availableInfo[$scope.config.devtoolsUrls[3]] = "Use this to try out Highlight changed properties functionality." +
-    			" Make sure to enable experiments.";
-    	availableInfo[$scope.config.devtoolsUrls[4]] = "Use this to try out" +
+        availableInfo[$scope.config.devtoolsUrls[0]] = {info : "Use the target Chrome's built-in devtools.", experiments : false};
+    	availableInfo[$scope.config.devtoolsUrls[1]] = {info : "Use devtools served from a local server.", experiments : false};
+    	availableInfo[$scope.config.devtoolsUrls[2]] = {info : "Use latest devtools from blink repository.", experiments : false};
+    	availableInfo[$scope.config.devtoolsUrls[3]] = {info : "Use this to try out Highlight changed properties functionality." +
+    			" Make sure to enable experiments." +
+    			"<br/><a href=\"http://sandipchitale.blogspot.com/2014/12/chrome-developer-tools-enhancement.html\" target=\"blog\">Blog</a>", experiments : true};
+    	availableInfo[$scope.config.devtoolsUrls[4]] = {info : "Use this to try out" +
     			" Show constructor definition and" +
     			" Show function|class documentation functionality." +
     			" The documentation will be loaded in API tab." +
-    			" Make sure to enable experiments.";
-    	availableInfo[$scope.config.devtoolsUrls[5]] = "Use this to try out" +
-    			" Go to member all files (Ctrl+Alt+Shift+P) functionality.";
-    	availableInfo[$scope.config.devtoolsUrls[6]] = "Use this to try out" +
-			" JavaScript Object Diagram functionality.";
-    	availableInfo[$scope.config.devtoolsUrls[7]] = "Use this to try out" +
+    			" Make sure to enable experiments." +
+    			"<br/><a href=\"http://sandipchitale.blogspot.com/2015/02/update-show-class-definition-chrome.html\" target=\"blog\">Blog</a>", experiments : true};
+    	availableInfo[$scope.config.devtoolsUrls[5]] = {info : "Use this to try out" +
+    			" Go to member all files (Ctrl+Alt+Shift+P) functionality." +
+    			"<br/><a href=\"http://sandipchitale.blogspot.com/2015/02/all-files-outline-chrome-devtools.html\" target=\"blog\">Blog</a>", experiments : false};
+    	availableInfo[$scope.config.devtoolsUrls[6]] = {info : "Use this to try out" +
+			" JavaScript Object Diagram functionality." +
+			"<br/><a href=\"http://sandipchitale.blogspot.com/2014/03/javascript-object-diagram-integration.html\" target=\"blog\">Blog</a>", experiments : false};
+    	availableInfo[$scope.config.devtoolsUrls[7]] = {info : "Use this to try out" +
 			" Highlight changed properties and" +
 			" Go to member all files (Ctrl+Alt+Shift+P) and" +
 			" Show constructor definition and" +
 			" Show function|class documentation functionality." +
 			" The documentation will be loaded in API tab." +
-			" Make sure to enable experiments.";
+			" Make sure to enable experiments." +
+			"<br/><a href=\"http://sandipchitale.blogspot.com/2015/02/single-devtools-with-all-my-enhancements.html\" target=\"blog\">Blog</a>", experiments : true};
+    	
+    	function adjustExperiments(url) {
+    		if (availableInfo[url] && availableInfo[url].experiments) {
+				$scope.config.experiments = availableInfo[url].experiments;
+			} else {
+				$scope.config.experiments = false;
+			}
+    	}
+    	
+        // Adjust initial experiments flag status
+        adjustExperiments($scope.config.devtoolsUrl);
 
     	$scope.showAvailableInfo = function() {
-    		var infoPopoverContent = availableInfo[$scope.config.devtoolsUrl];
-    		$('#devtoolsUrl').attr('data-content', infoPopoverContent)
-    		$timeout(function() {
-    			$('#devtoolsUrl').popover(infoPopoverContent ? 'show' : 'hide');
+    		if (availableInfo[$scope.config.devtoolsUrl]) {
+    			var infoPopoverContent = availableInfo[$scope.config.devtoolsUrl].info;
+    			$('#devtoolsUrl').attr('data-content', infoPopoverContent);
+    			$('#devtoolsUrl').attr('data-html', true);
     			$timeout(function() {
-    				$scope.hideAvailableInfo();
-        		}, 5000);
-    		}, 0);
+    				$('#devtoolsUrl').popover(infoPopoverContent ? 'show' : 'hide');
+    				$timeout(function() {
+    					$scope.hideAvailableInfo();
+    				}, 5000);
+    			}, 0);    			
+    		}
     	};
 
     	$scope.hideAvailableInfo = function() {
@@ -113,8 +132,8 @@
     	};
 
     	$scope.$watch('config.devtoolsUrl', function (newValue, oldValue) {
-    		if (newValue !== oldValue)
-    			if (newValue === $scope.config.devtoolsUrls[7]) {
+    		if (newValue !== oldValue) {
+    			if (newValue === $scope.config.devtoolsUrls[8]) {
     				// Get 25 latest branch numbers from blink
     				$http({method: 'GET', url: 'http://src.chromium.org/blink/branches/chromium/'}).
     				success(function(data, status, headers, config) {
@@ -134,11 +153,12 @@
     						branchNums.sort(function(a, b){return b-a});
     						branchNums.length = 100;
     						if (branchNums.length > 0) {
-    							availableInfo[$scope.config.devtoolsUrls[8]] = "Use devtools from blink repository branches. Change BRANCHNUM in URL above to one of ";
+    							availableInfo[$scope.config.devtoolsUrls[8]] = { info : "", experiments: false};
+    							availableInfo[$scope.config.devtoolsUrls[8]].info = "Use devtools from blink repository branches. Change BRANCHNUM in URL above to one of ";
     							for(var j = 0; j < branchNums.length; j++) {
-    								availableInfo[$scope.config.devtoolsUrls[8]] += (j > 0 ? ", " : "") + branchNums[j];
+    								availableInfo[$scope.config.devtoolsUrls[8]].info += (j > 0 ? ", " : "") + branchNums[j];
     							}
-    							availableInfo[$scope.config.devtoolsUrls[8]] += " ...";
+    							availableInfo[$scope.config.devtoolsUrls[8]].info += " ...";
     						}
     					}
     					$scope.showAvailableInfo();
@@ -148,8 +168,9 @@
     			} else {
     				$scope.showAvailableInfo();
     			}
+    			adjustExperiments(newValue);
+    		}
 	    });
-
 
         $scope.setDevtoolsUrl = function(devtoolsUrl) {
             $scope.config.devtoolsUrl = devtoolsUrl;
@@ -193,7 +214,7 @@
 
         debuggerview[0].addEventListener('newwindow', function(e) {
             e.preventDefault();
-
+            
             var apiView = $('#apiview');
             apiView.prop('src', e.targetUrl);
 
