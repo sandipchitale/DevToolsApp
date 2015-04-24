@@ -50,7 +50,7 @@
         $scope.config = {
             host: 'localhost',
             port: '9222',
-            devtoolsUrl: 'http://chrome-developer-tools.googlecode.com/git-history/enhanced/devtools-frontend/Source/devtools/front_end/inspector.html',
+            devtoolsUrl: 'http://cdn.rawgit.com/sandipchitale/chrome-developer-tools/enhanced/devtools-frontend/Source/devtools/front_end/inspector.html',
             experiments: false,
             devtoolsUrls: [
                 'Builtin',
@@ -60,7 +60,7 @@
                 'http://chrome-developer-tools.googlecode.com/git-history/issue453801/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://chrome-developer-tools.googlecode.com/git-history/allfilesoutline/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://sandipchitaleschromedevtoolsstuff.googlecode.com/git/front_end/inspector.html',
-                'http://chrome-developer-tools.googlecode.com/git-history/enhanced/devtools-frontend/Source/devtools/front_end/inspector.html',
+                'http://cdn.rawgit.com/sandipchitale/chrome-developer-tools/enhanced/devtools-frontend/Source/devtools/front_end/inspector.html',
                 'http://src.chromium.org/blink/branches/chromium/BRANCHNUM/Source/devtools/front_end/inspector.html'
             ]
         };
